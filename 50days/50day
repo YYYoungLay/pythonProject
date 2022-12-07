@@ -1,0 +1,326 @@
+"""class13 列表和元组的应用"""
+import time
+
+print("class13".center(20, '-'))
+
+
+"""class14 常用数据结构之集合"""
+print("class14".center(20, '-' ))
+"""Set 集合：无序性、互异性、确定性。集合不能够支持索引运算；集合的成员运算在性能上鱿鱼列表的成员运算
+没有序，不能用索引运算，不能重复
+"""
+"""
+创建集合
+{}字面量语法，其中至少有一个值，空则为空字典
+set() 空字典
+"""
+#字面量语法创建集合（重复元素不会出现在集合中）
+set1 = {1, 1, 2, 3, 4, 5, 2}
+print(set1, len(set1))
+
+#构造器法创建集合
+set2 = set('hello')
+print(set2, len(set2))
+set3 = set([1, 1, 2, 3, 3, 4]) #列表转集合，可去除重复元素
+print(set3, len(set3))
+
+#生成式语法创建集合
+set4 = {x for x in range(0, 20) if x % 3 == 0 or x % 5 ==0}
+print(set4)
+
+#循环遍历
+for elem in set4:
+    print(elem)
+
+"""
+集合的运算
+成员运算、交集运算、并集运算、差集运算、比较运算（相等性、子集、超集）等
+"""
+"""成员运算 
+in & not in
+"""
+set1 = {'young', 'and', 'rich'}
+print('young' in set1)#True
+print('old' in set1)#False
+"""交并差运算
+"""
+set1 = {1, 2, 3, 4, 5, 6, 7}
+set2 = {2, 4, 6, 8, 10}
+#交集
+print(set1 & set2) # {2, 4, 6}
+print(set1.intersection(set2))
+#并集
+print(set1 | set2) # {1, 2, 3, 4, 5, 6, 7, 8, 10}
+print(set1.union(set2))
+#差集
+print(set1 - set2) # {1， 3， 5， 7}
+print(set1.difference(set2))
+#对称差集 并集-交集 不同的凑一块
+print(set1 ^ set2) #{1, 3, 5, 7, 8, 10}
+print(set1.symmetric_difference(set2))
+#与赋值一起构成复合运算
+set1 &= set2
+print(set1) # {2, 4, 6}
+set1 |= set2 # {2, 4， 6， 8， 10}
+print(set1)
+"""比较运算
+==  & ！=
+如果集合A的任意一个元素都是集合B的元素，那么集合A称为集合B的子集，即对于∀a∈A，均有a∈B，则A⊆B。A是B的子集，反过来也可以称B是A的超集。如果A是B的子集且A不等于B，那么A就是B的真子集
+子集 超集 < >
+"""
+set1 = {1, 3, 5}
+set2 = {1, 2, 3, 4, 5}
+set3 = set2
+print(set1 == set2) # False
+# <运算符表示真子集，<=运算符表示子集
+print(set1 < set2, set1 <= set2)    # True True
+print(set2 < set3, set2 <= set3)    # False True
+# 通过issubset方法也能进行子集判断
+print(set1.issubset(set2))      # True
+# 反过来可以用issuperset或>运算符进行超集判断
+print(set2.issuperset(set1))    # True
+print(set2 > set1)              # True
+"""
+集合的方法
+集合是可变类型，课题通过集合类型的方法为集合添加或删除元素
+"""
+#add update
+set1 = set()
+set1.add(123)
+set1.add(45)
+set1.update({1, 2, 567, 7})
+print(set1)
+#discard
+set1.discard(1)
+set1.discard(56)#不存在，但不出错
+print(set1)
+# set1.remove(56)#先判断是否存在，否则KeyError
+if 567 in set1:
+    set1.remove(567)
+print(set1)
+#pop可从集合中随机删除一个元素并返回该元素
+print(set1.pop())
+#clear清空整个集合
+set1.clear()
+print(set1)
+#判断两个集合有米有相同元素 isdisjoint
+set1 = {'young', 'and', 'rich'}
+ste2 = {'young', 'but', 'poor'}
+print(set1.isdisjoint(set2))
+#不可变集合 frozenset，可计算出哈希码，不能添加和删除
+set1 = frozenset({1, 2, 4, 5, 6})
+set2 = frozenset({2, 4 ,6})
+print(set1 & set2)
+print(set1 | set2)
+print(set1 - set2)
+print(set1 ^ set2)
+print(set1 > set2)
+print(set1 >= set2)
+
+"""class15 常用数据结构之字典"""
+print('class15'.center(20, '-'))
+"""
+directory 字典类型 将相关的信息组装到一起
+"""
+"""
+创建和使用字典
+{键：值};内置函数dict；字典的生成式语法
+"""
+person = {
+    'name' : 'blue',
+    'age' : 34,
+    'weight' : 50,
+    'height' : 170,
+    'tel' : 137784768
+}
+print(person)
+#dict函数中的每一组参数就是字典中的一组键值对
+person = dict(name='blue', age=18, tel=12345678)
+print(person)
+#可以用过python的内置函数zip压缩两个序列并创建字典
+items1 = dict(zip('abcde', '12345'))
+items2 = dict(zip('abcde', range(1, 10)))
+print(items1, items2)
+#字典生成式语法创建字典
+items1 = {x : x ** 3 for x in range(1,10)}
+print(items1)
+#循环遍历键
+print(len(items1))
+for key in items1:
+    print(key)
+"""
+字典的运算
+成员运算：判定指定的键在不在字典中
+索引：通过键获取对应的值（修改）或者向字典中加入新的键值对。字典的索引是键
+字典中的键必须是不可变类型（int str tuple）不可以是list set dict
+"""
+print('age' in person, 'gender' in person)
+if 'age' in person:#通过age修改person对应值
+    person['age'] = 67
+#通过索引操作向person字典中存入新的键值对
+person['gender'] = 'female'
+print(person)
+print(len(person))
+#对字典中的键进行循环并通过索引运算获取键对应的值
+for key in person:
+    print(f'{key}:{person[key]}')
+"""
+字典的方法
+
+"""
+# 字典中的值又是一个字典(嵌套的字典)
+students = {
+    1001: {'name': '狄仁杰', 'sex': True, 'age': 22, 'place': '山西大同'},
+    1002: {'name': '白元芳', 'sex': True, 'age': 23, 'place': '河北保定'},
+    1003: {'name': '武则天', 'sex': False, 'age': 20, 'place': '四川广元'}
+}
+#使用get方法通过键获取对应的值，如果娶不到不会引发KeyError异常而是返回None或设定的默认值
+print(students.get(1001))
+print(students.get(1005))
+print(students.keys())#获取字典中所有的键
+print(students.values())#获取字典中所有的值
+print(students.items())#获取字典中所有的键值对
+for key,value in students.items():#对字典中所有的键值对进行循环遍历
+    print(key, '----', value)
+#使用pop方法通过键删除对应的键值对并返回该值
+stu1 = students.pop(1001)
+print(stu1, len(students))
+#使用popitem方法删除字典中最后一组键值对并返回对应的二元组;若字典为空，KeyError
+key, value = students.popitem()
+print(key, value)
+#若这个键在字典中存在，setdefault返回原来与这个键对应的值；否则，向字典中添加键值对，返回第二个参数的值，默认为None
+res = students.setdefault(1005, {'name': 'young', 'age': 13})
+print(res)
+print(students)
+#使用update更新字典元素，相同的键会用新值覆盖掉旧值，不同的键会添加到字典中
+others = {
+    1005: {'name': '乔峰', 'sex': True, 'age': 32, 'place': '北京大兴'},
+    1010: {'name': '王语嫣', 'sex': False, 'age': 19},
+    1008: {'name': '钟灵', 'sex': False}
+}
+students.update(others)
+print(students)
+#del 删除 若无对应的值，KeyError
+person = {'name': '王大锤', 'age': 25, 'sex': True}
+del person['age']
+print(person)    # {'name': '王大锤', 'sex': True}
+"""
+字典的应用
+"""
+"""输入一段话，统计每个英文字母出现的次数"""
+# sentence = input('please input a word:')
+# dict = {}
+# for word in sentence:
+#     # if word in dict:
+#     #     dict[word] += 1
+#     # else:
+#     #     dict[word] = 1
+#     if 'A' <= word <= 'Z' or 'a' <= word <= 'z':
+#         dict[word] = dict.get(word, 0) + 1
+# for key, value in dict.items():
+#     print(f'字母{key}出现{value}次')
+
+# sentence = input('请输入一段话: ')
+# counter = {}
+# for ch in sentence:
+#     if 'A' <= ch <= 'Z' or 'a' <= ch <= 'z':
+#         counter[ch] = counter.get(ch, 0) + 1
+# for key, value in counter.items():
+#     print(f'字母{key}出现了{value}次.')
+
+print(dict)
+
+"""----class16面向对象编程入门-----"""
+print("class16".center(20, '-'))
+"""数据和操作数据的函数是一种逻辑上的整体，称之为对象；解决问题的方法时创建对象并向对象发出各种各样的额消息"""
+"""把一组数据和处理数据的方法组成对象，把行为相同的对象归纳为类，通过封装隐藏对象的内部细节，通过继承实现类的特化和泛化，通过多态实现基于对象类型的动态分派"""
+"""类是一个抽象的概念，对象是一个具体的概念。我们把同一类对象的共同特征抽取出来就是一个类"""
+"""一切皆为对象，对象都有属性和行为，每个对象都是独一无二的，而且对象一定属于某个类。对象的属性是对象的静态特征，对象的行为是对象的动态特征"""
+"""类的代码块中，我们需要写一些函数，我们说过类是一个抽象概念，那么这些函数就是我们对一类对象共同的动态特征的提取。写在类里面的函数我们通常称之为方法，方法就是对象的行为，也就是对象可以接收的消息。方法的第一个参数通常都是self，它代表了接收这个消息的对象本身"""
+#定义类
+class Student:
+    def __init__(self, name, age): #为对象指定属性，同时完成对属性赋初始值的操作
+        self.name = name
+        self.age = age
+
+    def study(self, course_name):
+        print(f'{self.name} is sudying {course_name} now!')
+
+    def play(self):
+        print(f'{self.name} is playing now')
+
+    def __repr__(self):#打印对象输出的字符串
+        return f'{self.name} is {self.age}'
+
+#创建类
+stu1 = Student('blue', 30)
+stu2 = Student('Red', '15')#stu2保存的是一个对象在内存中的逻辑位置
+stu3 = stu2#并没有创建新对象，只是将对象地址赋值给新变量
+#调用对象的方法，尝试给对象发消息,以下两种方式
+Student.study(stu1, ' computer')#通过“类.方法”调用方法，第一个参数是接收消息的对象，第二个参数是学习分课程名称
+stu2.play()#通过“对象.方法“调用，点前面的对象就是接收消息的对象，只需要传入第二个参数
+#初始化方法
+"""在Python中，以两个下划线__（读作“dunder”）开头和结尾的方法通常都是有特殊用途和意义的方法，我们一般称之为魔术方法或魔法方法"""
+"""如果我们在打印对象的时候不希望看到对象的地址而是看到我们自定义的信息，可以通过在类中放置__repr__魔术方法来做到，该方法返回的字符串就是用print函数打印对象的时候会显示的内容"""
+print(stu1)
+"""封装、继承、多态
+封装：隐藏一切可隐藏的细节，只向外界暴露简单的调用接口
+类是抽象的，对象是具体的，有了类就能创建对象，有了对象就可以接收消息。
+定义类的过程是一个抽象的过程，找到对象公共的属性属于数据抽象，找到对象公共的方法属于行为抽象
+"""
+class Clock(object):
+    """数字时钟"""
+
+    def __init__(self, hour=0, minute=0, second=0):
+        self.hour = hour
+        self.min = minute
+        self.sec = second
+
+    def run(self):
+        self.sec += 1
+        if self.sec == 60:
+            self.sec = 0
+            self.min = 1
+            if self.min ==60:
+                self.min = 0
+                self.hour = 1
+                if self.hour == 24:
+                    self.hour = 0
+
+    def show(self):
+        return f'{self.hour:0>2d}:{self.min:0>2d}:{self.sec:0>2d}'
+
+clock = Clock()
+clock.show()
+# while True:
+#     print(clock.show())
+#     time.sleep(1)
+#     clock.run()
+
+class Point(object):
+    """平面上的点"""
+
+    def __init__(self, x=0, y=0):
+        """初始化方法
+        :param x:横坐标
+        :param y:纵坐标
+        """
+        self.x = x
+        self.y = y
+
+    def disdance_to(self, other):
+        """计算与另一个点的距离
+        :param other:另一个点
+        """
+        dx = self.x - other.x
+        dy = self.y - other.y
+        return (dx * dx + dy * dy) ** 0.5
+
+    def show(self):
+        """显示点坐标"""
+        return f'{self.x}, {self.y}'
+
+point1 = Point(23, -56)
+point2 = Point(3, 100)
+print(f'{point1.show()}与{point2.show()}之间的相距{point1.disdance_to(point2)}')
+
